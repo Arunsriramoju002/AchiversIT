@@ -1,0 +1,512 @@
+*{
+    margin: 0px 0px;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body{
+ 
+    background-color:whitesmoke;
+    width: 100%;
+   
+}
+.container{
+    height: 2440px;
+    width: 100%;
+    
+}
+/* Navbar starts here */
+.navbar{
+    display: flex;
+    background-color: white;
+    height: 100px;
+    align-items: center;
+
+
+
+}
+
+.navlist ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center ;
+    justify-items: flex-start;
+    gap: 20px;
+}
+.navlist ul li {
+    list-style: none;
+    font-size: 16px;
+    
+}
+.navlist ul li a:hover{
+    color: black;
+}
+.navlist ul li a{
+    text-decoration: none;
+    color:rgb(115, 115, 115);
+    
+}
+.media{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    
+
+}
+.icons{
+    position: relative;
+    left: 500px;
+    cursor: pointer;
+    font-size: 24px;
+        
+}
+.icons i{
+    margin-left: 10px;
+    color: grey;
+
+}
+.sub{
+    position: relative;
+    left: 540px;
+    font-size: 24px;
+
+    
+}
+.sub i{
+    cursor: pointer;
+}
+.sub button{
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+}
+.sub button:hover{
+    opacity: 0.2;
+    transition: 0.5s;
+    
+}
+/* navbar ends here */
+.info{
+    display: flex;                                      
+    /* justify-content: center; */
+    background-color: white;
+    width: 900px;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-left: 300px;
+    padding: 10px 10px;
+    flex-direction: row;
+
+}
+.infoImg img{
+    width: 300px;
+    height: 200px;
+    border-radius: 8px;
+
+}
+.infoContext{
+    margin-left: 50px;
+    margin-top: 10px;
+    
+}
+#lifestyle{
+    color:rgb(98, 2, 208);
+    background-color: rgb(231, 221, 251);
+    width: 70px;
+    border-radius: 18px;
+    padding: 5px 5px;
+    margin-bottom: 10px;
+    font-weight: 400;
+    padding-left: 13px;
+
+}
+#context{
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+#contextInfo{
+    color:gray;
+}
+.profile{
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+}
+.profile img{
+    
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.profile p{
+    margin-left: 8px;
+    color: gray;
+
+}
+/* information 1 ends here */
+
+
+/* info2 starts here */
+.information2{
+    display: flex;
+    margin: 0px;
+}
+.info2{
+    height: 170px;
+    width: 450px;
+    background-color: white;
+    margin-left: 300px;
+    margin-top: 50px;
+    border-radius: 10px;
+
+
+    
+}
+.box1{
+    display: flex;
+}
+.box1Img img{
+    height: 150px;
+    width: 200px;
+    margin: 10px 10px;
+}
+
+#technology{
+    margin-top: 20px;
+    width: 100px;
+    color: #007bff;
+    background-color: #dcebf9;
+    border-radius: 10px;
+    padding-left: 10px;
+
+}
+#box1Info{
+    font-weight: 600;
+    margin-top: 20px;
+
+}
+#box1Profile{
+    margin-top: 20px;
+    font-size: 13px;
+    color: gray;
+
+}
+/* info 2 ends here  */
+
+/* info 3 ends here */
+.info3{
+    height: 170px;
+    width: 450px;
+    background-color: white;
+    margin-left: 20px;
+    margin-top: 50px;
+    border-radius: 10px;
+
+
+    
+}
+.box2{
+    display: flex;
+}
+.box2Img img{
+    height: 150px;
+    width: 200px;
+    margin: 10px 10px;
+}
+
+#travel{
+    margin-top: 20px;
+    width: 70px;
+    color: #007bff;
+    background-color: #dcebf9;
+    border-radius: 10px;
+    padding-left: 15px;
+
+}
+#box2Info{
+    font-weight: 600;
+    margin-top: 20px;
+
+}
+#box2Profile{
+    margin-top: 20px;
+    font-size: 13px;
+    color: gray;
+
+}
+.categoryText{
+    text-align: center;
+    margin-top: 50px;
+}
+.categoryText h1 {
+    font-size: 27px;
+    font-weight: 750;
+}
+.categoryText p{
+    margin-top: 10px;
+    font-size: 12px;
+    color: gray;
+}
+.categories{
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    /* justify-content: space-evenly */
+}
+.categories button{
+
+    background-color:rgb(254, 251, 251) ;
+    font-size: 17px;
+    border-radius: 15px;
+    padding: 8px 8px;
+}
+.categories button:hover{
+    background-color: black;
+    color: white;
+    transition: 0.3s;
+
+}
+.row1{
+    margin-top: 30px;
+    margin-left: 170px;
+    display: flex;
+    gap: 60px;
+}
+.firstBox{
+    width: 350px;
+    height: 380px;
+    /* background-color: aqua; */
+}
+.firstBox > img{
+    margin-top: 20px;
+    margin-left: 10px;
+    height: 210px;
+    width: 330px;
+    border-radius: 10px;
+
+}
+.firstBox h1{
+    font-size: 18px ;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.firstBox p{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    color: gray;
+}
+.firstBoxProfile{
+    display: flex;
+    margin-left: 10px;
+
+}
+.firstBoxProfile > img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+}
+.firstBoxProfile p{
+    align-content: center;
+    margin-left: 8px;
+    color: gray;
+}
+.firstBoxProfile p span{
+    color: rgb(3, 96, 126);
+    background-color: rgb(171, 221, 252);
+    border-radius: 10px;
+    padding: 6px 6px;   
+}
+.row2{
+    margin-top: 30px;
+    margin-left: 170px;
+    display: flex;
+    gap: 60px;
+
+}
+.posts {
+    margin-top: 70px;
+    text-align: center;
+
+}
+.posts button{
+    font-size: 20px;
+    background-color: white;
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    padding: 10px 10px;
+
+}
+.posts button:hover{
+    background-color: black;
+    color: white;
+    
+}
+.authors{
+    display: flex;
+    margin-top: 50px;
+    margin-left: 200px;
+    width: 1100px;
+    border-bottom: 1px solid lightgray;
+}
+.topAuthors h1{
+    margin-bottom: 40px;
+}
+.allAuthors p{
+    margin-left: 800px;
+    cursor: pointer;
+}
+.authorsNames{
+    display: flex;
+}
+
+.author1{
+    margin-top: 50px;
+    margin-left: 200px;
+    display: flex;
+    width: 300px;
+    height: 100px;
+    border-radius: 10px;
+    background-color:white;
+    border: 1px solid lightgray;
+}
+.profilePic1 img{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.profileContext1 h1{
+    margin: 0px;
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 17px;
+}
+.profileContext1 p{
+    margin-top: 8px;
+    margin-left: 10px;
+    font-size: 12px;
+    color: gray;
+}
+
+
+.author2{
+    margin-top: 50px;
+    margin-left: 100px;
+    display: flex;
+    width: 300px;
+    height: 100px;
+    border-radius: 10px;
+    background-color:white;
+    border: 1px solid lightgray;
+}
+.profilePic2 img{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.profileContext2 h1{
+    margin: 0px;
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 17px;
+}
+.profileContext2 p{
+    margin-top: 8px;
+    margin-left: 10px;
+    font-size: 12px;
+    color: gray;
+}
+.articles{
+    height: 250px;
+    width: 100%;
+}
+.subscribe{
+    display: flex;
+    margin-top: 30px;
+    margin-left: 200px;
+    height: 150px;
+    width: 1105px;
+    background-color: white;
+    border-radius: 10px;
+
+}
+.newsletter h1{
+    margin-top:35px ;
+    margin-left:30px ;
+    font-size: 25px;
+    
+}
+.newsletter p{
+    margin-top: 10px;
+    margin-left: 30px;
+    width: 400px;
+    color: gray;
+
+}
+
+.email input{
+    margin-top: 60px;
+    margin-left: 300px;
+    font-size: 20px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    height: 40px;
+    
+    
+}
+.email button{
+    margin-left: 8px;
+    background-color: black;
+    color: white;
+    padding: 13px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+.email button:hover{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
+}
+
+.footer{
+    align-items: center;
+    display: flex;
+    height: 150px;
+    background-color: white;
+    justify-content: space-around;
+    font-size: 15px;
+    color: gray;
+}
+.footer > p{
+    cursor: pointer;
+}
+.follow i{
+    cursor: pointer;
+    margin-left: 5px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
