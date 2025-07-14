@@ -1,0 +1,78 @@
+
+/* 
+
+    CSS Animations : 
+*/
+
+
+.container{
+    width: 90%;
+    border: 1px solid black;
+    margin: 100px auto;
+    height: 400px;
+}
+
+.container .box{
+    width: 100px;
+    height: 100px;
+    background-color: aqua;
+    position: relative;
+    border-radius: 8px;
+    /* Animation props */
+    animation-name: slide;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-direction:alternate;
+    animation-timing-function:cubic-bezier(0,.99,1,.03);
+}
+
+@keyframes slide {
+    /* from{
+        left : 0px;
+        background-color: aqua;
+        border-radius: 0px;
+    }
+
+    to{
+        left : 1180px;
+        background-color: red;
+        border-radius: 50%;
+    } */
+
+    0%{
+        left: 0px;
+        top: 0px;
+        background-color: aqua;
+        transform: rotate(0deg);
+    }
+
+    25%{
+        left: 1180px;
+        top: 0px;
+        background-color: red;
+        border-radius: 0px;
+
+
+    }
+
+    50%{
+        left: 1180px;
+        top: 300px;
+        background-color: rgb(51, 48, 48);
+    }
+
+    75%{
+        left: 0px;
+        top: 300px;
+        background-color: rgb(64, 255, 0);
+    }
+
+    100%{
+        left: 0px;
+        top: 0px;
+        background-color: rgb(0, 8, 255);
+        border-radius: 50%;
+        transform: rotate(270deg);
+    }
+}
