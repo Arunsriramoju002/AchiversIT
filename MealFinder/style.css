@@ -151,11 +151,11 @@ body{
         width: 90%; 
     }
      #search-text1 {
-        font-size:5vw; /* Readable size for mobile */
+        font-size:5vw; 
     }
 
     #search-text2 {
-        font-size: 1rem; /* Readable size for mobile */
+        font-size: 1rem; 
     }
     
     .cards img{
