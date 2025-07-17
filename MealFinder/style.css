@@ -1,0 +1,187 @@
+*{
+    
+    font-family: Arial, Helvetica, sans-serif;
+}
+body{
+    margin: 0;
+    height: 200vh;
+    background-color: white;
+
+    /* width: 100%; */
+}
+.container{
+    width: 100%;
+    height: 80%;
+    position: relative;
+    background-color: whitesmoke;
+}
+.navbar{
+    display: flex;
+    width: 100%;
+    background-color:rgba(254, 87, 26, 0.875);
+    height: 50px;
+    align-items: center;
+    flex-direction: row;
+    justify-content:space-between;
+}
+.nav-header a,p{
+    color: white;
+    text-decoration: none;
+    padding: 0 5vw;
+}
+.nav-ham i{
+    color: white;
+    padding: 0 5vw;
+    cursor: pointer;
+}
+.search{
+    display: flex;
+    flex-direction: column;
+    background-image: url(./assets/table.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 50vh; 
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+.search-bar {
+    display: flex;
+    gap: 1vw;
+    width: 25vw;
+    min-width: 320px;
+    
+
+}
+.search-bar input{
+    display: flex;
+    width: 1000px;
+    height: 5vh;
+    border-radius: 3vw;
+    
+}
+.search-bar button{
+    border-radius: 50%;
+    background-color: rgba(254, 87, 26, 0.875);
+    color: white;
+    width: 100px;
+    height: 5vh;
+    border: 1px solid white;
+}
+.search-bar button:hover{
+    background-color: white;
+    color: rgba(254, 87, 26, 0.875);
+    transition: 1s;
+
+}
+#search-text1{
+    font-weight: bolder;
+    font-size: 1.7vw;
+}
+#search-text2{
+    font-size: 1vw;
+}
+.categories-header{
+    padding: 0 5vw;
+}
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 5vw;
+    
+    
+}
+.cards img{
+    width: calc((100% - 80px) / 5);
+    width: 16vw;
+    background-color: white;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+}
+.cards img:hover{
+    transform: scale(0.8);
+    transition: 0.5s ease-in-out;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width :768px) {
+    .search-bar input{
+        width: 60%; 
+        height: 48px;
+        border-radius: 24px;
+        font-size: 1rem;
+        padding: 0 1rem;
+
+    }
+    .search-bar button{
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+    }
+    .search-bar {
+        width: 90%; 
+    }
+     #search-text1 {
+        font-size:5vw; /* Readable size for mobile */
+    }
+
+    #search-text2 {
+        font-size: 1rem; /* Readable size for mobile */
+    }
+    
+    .cards img{
+        width: calc(50% - 20px);
+    }
+    
+}
+@media (max-width :480px){
+    .cards img{
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
