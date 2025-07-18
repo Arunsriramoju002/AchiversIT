@@ -5,7 +5,7 @@
 body{
     margin: 0;
     height: 200vh;
-    background-color: white;
+    
 
     /* width: 100%; */
 }
@@ -31,7 +31,7 @@ body{
 }
 .nav-ham i{
     color: white;
-    padding: 0 5vw;
+    padding: 0 6vw;
     cursor: pointer;
 }
 .search{
@@ -67,6 +67,7 @@ body{
     width: 100px;
     height: 5vh;
     border: 1px solid white;
+    cursor: pointer;
 }
 .search-bar button:hover{
     background-color: white;
@@ -81,30 +82,109 @@ body{
 #search-text2{
     font-size: 1vw;
 }
-.categories-header{
+.categories-header h1{
     padding: 0 5vw;
+    margin-bottom: 0.9vh;
+    font-weight: 600;
+    font-size: 25px;
+    
+    
+}
+.border{
+    border: 3.5px solid rgba(254, 87, 26, 0.875);
+    width: 6vw;
+    margin-left: 5vw;
+    margin-bottom: 20px;
 }
 
 .cards{
     display: flex;
     flex-wrap: wrap;
     padding: 0 5vw;
+    position: relative;
     
     
 }
 .cards img{
     width: calc((100% - 80px) / 5);
     width: 16vw;
-    background-color: white;
+    /* background-color: white; */
     border-radius: 5px;
-    margin: 10px;
+    
     cursor: pointer;
 }
 .cards img:hover{
     transform: scale(0.8);
     transition: 0.5s ease-in-out;
 }
+.cards-item{
+    position: relative;
+    background-color: white;
+    margin: 10px;
+}
 
+.cards-item span {
+    position: absolute;
+    left: 11vw;
+    top: 1vh;
+    background-color: rgba(254, 87, 26, 0.875);
+    border-radius: 5px;
+    padding: 0.3vw;
+    color: white;
+    transform: scale(0.8);
+    cursor: pointer;
+
+
+}
+#largeItem span{
+    left: 7vw;
+}
+.categories-veg{
+    margin:7vh auto;
+    width: 80vw;
+    height: 40vh;
+    border: 2px solid rgba(254, 87, 26, 0.875);
+    background-color: whitesmoke;
+
+}
+.categories-veg h2{
+    color: rgba(254, 87, 26, 0.875);
+    padding-left: 5vw;
+}
+.categories-veg p{
+    color: grey;
+    line-height: 3.3vh;
+}
+.veg-items{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem 5vw;
+    gap: 24px;
+   
+}
+.veg-cards{
+    width:calc(20%-20px);
+    min-width:180px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+   
+}
+.veg-cards img{
+    
+    width: 180px; 
+    height: 180px;
+    object-fit: cover; 
+   
+}
+.veg-cards span{
+    display: block;
+    padding: 1rem;
+    font-weight: 600;
+    color: #333;
+    
+}
 
 
 
@@ -134,12 +214,16 @@ body{
 
 
 @media (max-width :768px) {
+    .container{
+       height: 100%;
+    }
     .search-bar input{
         width: 60%; 
         height: 48px;
         border-radius: 24px;
         font-size: 1rem;
         padding: 0 1rem;
+        margin: auto;
 
     }
     .search-bar button{
@@ -164,6 +248,10 @@ body{
     
 }
 @media (max-width :480px){
+    .container{
+        background-color: whitesmoke;
+        height: 100%;
+    }
     .cards img{
         width: 100%;
     }
