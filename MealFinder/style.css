@@ -186,15 +186,116 @@ body{
     
 }
 
-.bainganbhartapage p {
-    margin-top: 2vh;
+.bainganbhartapage  {
+    display: flex;
+    width: 90%;
+    margin-top: 7vh;
+    margin-left: 3vw;
     background-color: rgba(254, 87, 26, 0.875);
     height: 50px;
-    text-align:justify;
+    color: white;
+    align-items: center;
     
-    
+}
+.bainganbhartapage i{
+    align-items: center;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+.details-header h1{
+   
+    margin-left: 3vw;
+    margin-bottom: 0.9vh;
+    font-weight: 600;
+    font-size: 25px;
+}
+.border-baingan{
+    border: 3.5px solid rgba(254, 87, 26, 0.875);
+    width: 6vw;
+    margin-left: 3vw;
+    margin-bottom: 20px;
+
 
 }
+.details-table{
+    display: flex;
+    margin-left: 3vw;
+    background-color: white;
+    width: 90%;
+}
+.bainganbhartaimg img{
+    margin-top: 5vh;
+    margin-left: 2.5vw;
+    width: 40vw;
+    border-radius: 5px;
+
+
+}
+.baingan-ingredients{
+    margin-top: 7vh;
+    margin-left: 4vw;
+    height: 33vh  ;
+    width: 43.4vw;
+
+}
+.baingan-ingredients h4{
+    color:rgba(254, 87, 26, 0.875) ;
+    font-size: 23px;
+    border-bottom: 1.6px solid rgba(254, 87, 26, 0.875);
+    padding-bottom: 2vh;
+
+}
+.baingan-ingredients p{
+    color: black;
+    padding: 0 ;
+    
+}
+#tags button{
+    background-color: white;
+    color: rgba(254, 87, 26, 0.875);
+    border: 1px solid  rgba(254, 87, 26, 0.875);
+    border-radius: 5px;
+    margin-left: 0.5vw;
+    cursor: pointer;
+}
+#tags button:hover{
+    color: white;
+    background-color: rgba(254, 87, 26, 0.875);
+    transition: 1s;
+}
+.ingredients{
+    background-color:rgba(254, 87, 26, 0.875) ;
+    width: 35vw;
+    height: 30vh;
+    color: white;
+}
+.ingredients ul{
+
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    gap: 3vw;
+}
+.ingredients ul li {
+    list-style: none;
+    color: white;
+    /* padding: 0px; */
+
+}
+.ingredients ul li span{
+    background-color: rgb(4, 101, 142);
+    border-radius: 50%;
+    border: 1px solid white;
+    padding: 3px 8px;
+
+
+}
+
+
+
+
+
+
 
 
 
