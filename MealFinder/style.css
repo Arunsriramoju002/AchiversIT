@@ -1,28 +1,32 @@
 *{
     box-sizing: border-box; 
     font-family: Arial, Helvetica, sans-serif;
+  
 }
 body{
     margin: 0;
-    /* height: 200vh; */
-    
 
-    /* width: 100%; */
 }
+
 .container{
     width: 100%;
     min-height: 100vh;
     position: relative;
     background-color: whitesmoke;
 }
+/* Navbar Starts Here */
 .navbar{
     display: flex;
     width: 100%;
-    background-color:rgba(254, 87, 26, 0.875);
+    background-color:rgba(254, 87, 26, 1);
     height: 50px;
     align-items: center;
     flex-direction: row;
     justify-content:space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 .nav-header a,p{
     color: white;
@@ -34,6 +38,11 @@ body{
     padding: 0 6vw;
     cursor: pointer;
 }
+/* Navbar Ends Here */
+
+
+
+/* Search Starts Here  */
 .search{
     display: flex;
     flex-direction: column;
@@ -63,7 +72,7 @@ body{
 }
 .search-bar button{
     border-radius: 50%;
-    background-color: rgba(254, 87, 26, 0.875);
+    background-color: rgba(254, 87, 26, 1);
     color: white;
     width: 100px;
     height: 5vh;
@@ -72,7 +81,7 @@ body{
 }
 .search-bar button:hover{
     background-color: white;
-    color: rgba(254, 87, 26, 0.875);
+    color: rgba(254, 87, 26, 1);
     transition: 1s;
 
 }
@@ -83,6 +92,9 @@ body{
 #search-text2{
     font-size: 1vw;
 }
+/* Search Ends Here  */
+
+/* Categories Starts Here  */
 .categories-header h1{
     padding: 0 5vw;
     margin-bottom: 0.9vh;
@@ -92,8 +104,8 @@ body{
     
 }
 .border{
-    border: 3.5px solid rgba(254, 87, 26, 0.875);
-    width: 6vw;
+    border: 3.5px solid rgba(254, 87, 26, 1);
+    width: 60px;
     margin-left: 5vw;
     margin-bottom: 20px;
 }
@@ -109,7 +121,6 @@ body{
 .cards img{
     width: calc((100% - 80px) / 5);
     width: 16vw;
-    /* background-color: white; */
     border-radius: 5px;
     
     cursor: pointer;
@@ -128,7 +139,7 @@ body{
     position: absolute;
     left: 11vw;
     top: 1vh;
-    background-color: rgba(254, 87, 26, 0.875);
+    background-color: rgba(254, 87, 26, 1);
     border-radius: 5px;
     padding: 0.3vw;
     color: white;
@@ -140,15 +151,19 @@ body{
 #largeItem span{
     left: 7vw;
 }
+/* Categories Ends Here  */
+
+
+/* Categories Veg Starts Here  */
 .categories-veg{
     margin:7vh auto;
     width: 80vw;
-    border: 2px solid rgba(254, 87, 26, 0.875);
+    border: 2px solid rgba(254, 87, 26, 1);
     background-color: whitesmoke;
 
 }
 .categories-veg h2{
-    color: rgba(254, 87, 26, 0.875);
+    color: rgba(254, 87, 26, 1);
     padding-left: 5vw;
 }
 .categories-veg p{
@@ -185,13 +200,18 @@ body{
     font-weight: 550;
     
 }
+/* Categories Veg Ends Here  */
+
+
+
+/* Baingan Bharta Starts Here  */
 
 .bainganbhartapage  {
     display: flex;
     width: 90%;
     margin-top: 7vh;
     margin-left: 3vw;
-    background-color: rgba(254, 87, 26, 0.875);
+    background-color: rgba(254, 87, 26, 1);
     height: 50px;
     color: white;
     align-items: center;
@@ -210,15 +230,15 @@ body{
     font-size: 25px;
 }
 .border-baingan{
-    border: 3.5px solid rgba(254, 87, 26, 0.875);
-    width: 6vw;
+    border: 3.5px solid rgba(254, 87, 26, 1);
+    width: 140px;
     margin-left: 3vw;
     margin-bottom: 20px;
 
 
 }
 .details-table{
-    /* display: flex; */
+    
     margin-left: 3vw;
     background-color: white;
     width: 90%;
@@ -228,51 +248,59 @@ body{
 .details-main{
     display: flex;
 }
+
 .bainganbhartaimg img{
     margin-top: 5vh;
     margin-left: 2.5vw;
-    width: 40vw;
+    width: 100%;
     border-radius: 5px;
+    
 
 
+}
+#veg1 a {
+    text-decoration:none;
+}
+.bainganbhartaimg ,.baingan-ingredients{
+    min-width: 0;
+    flex: 1;
 }
 .baingan-ingredients{
     margin-top: 7vh;
     margin-left: 4vw;
-    /* height: 33vh  ; */
-    /* width: 43.4vw; */
     min-width: 320px;
-    /* flex: 1;   */
+
 
 }
 .baingan-ingredients h4{
-    color:rgba(254, 87, 26, 0.875) ;
+    color:rgba(254, 87, 26, 1) ;
     font-size: 23px;
-    border-bottom: 1.6px solid rgba(254, 87, 26, 0.875);
+    border-bottom: 1.6px solid rgba(254, 87, 26, 1);
     padding-bottom: 2vh;
 
 }
 .baingan-ingredients p{
     color: black;
     padding: 0 ;
+    line-height: 1.6;
     
     
 }
 #tags button{
     background-color: white;
-    color: rgba(254, 87, 26, 0.875);
-    border: 1px solid  rgba(254, 87, 26, 0.875);
+    color: rgba(254, 87, 26, 1);
+    border: 1px solid  rgba(254, 87, 26,1);
     border-radius: 5px;
     margin-left: 0.5vw;
     cursor: pointer;
 }
 #tags button:hover{
     color: white;
-    background-color: rgba(254, 87, 26, 0.875);
+    background-color: rgba(254, 87, 26, 1);
     transition: 1s;
 }
 .ingredients{
-    background-color:rgba(254, 87, 26, 0.875) ;
+    background-color:rgba(254, 87, 26, 1) ;
     width: 100%;
     height: auto;
     color: white;
@@ -301,21 +329,14 @@ body{
     width: 30%;
     display: flex;
     align-items: center; 
-    /* display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 28px;
-    height: 28px;
-    margin-right: 10px;
-    padding: 0px; */
-
+    
 }
 
 .ingredients ul li span{
     background-color: rgb(4, 101, 142);
     border-radius: 50%;
     border: 1px solid white;
-    /* padding: 3px 8px; */
+  
     width: 28px;
     height: 28px;
     display: inline-flex;
@@ -323,23 +344,20 @@ body{
     align-items: center;
     margin-right: 10px;
     margin-left: 20px;
-    /* margin-bottom: 5px; */
+    
 
 
 }
 .measure{
-    
-    
-    
     width: 90%;
-    /* margin:5px auto 0 auto; */
+  
     margin-left: 25px;
 
 }
 .measure-header p{
     color: black;
     padding: 0;
-    /* margin-left: 2.5vw; */
+    
     font-weight: 600;
 
 }
@@ -347,8 +365,7 @@ body{
     background-color: whitesmoke;
     border: 1px solid lightgrey;
     width: 100%;
-    /* height: auto; */
-    /* margin-left: 2.5vw; */
+    
     padding: 20px ;
 
 }
@@ -357,7 +374,7 @@ body{
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    /* width: 20%; */
+    
     margin: 0;
     padding: 0;
     row-gap: 15px;
@@ -371,11 +388,11 @@ body{
     align-items: center;
     font-weight: 530;
     
-    /* margin-left: 20vw; */
+   
 
 }
 .measures-items ul li i{
-    color: rgba(254, 87, 26, 0.875);
+    color: rgba(254, 87, 26, 1);
     width: 15px;
     margin-right: 10px;
     text-align: center;
@@ -390,15 +407,22 @@ body{
 }
 .instructions-list ul {
     list-style: none;
-    line-height: 5vh;
+    
     width: 60vw;
     margin: 0;
 
 }
-.instructions-list ul li i {
-    color: rgba(254, 87, 26, 0.875);
-    margin-right: 1vw;
+.instructions-list ul li{
+    display: flex;
+    align-items: flex-start;
+    line-height: 5vh;
 }
+.instructions-list ul li i {
+    color: rgba(254, 87, 26, 1);
+    margin-right: 1vw;
+    padding-top:7px ;
+}
+/* Baingan Bharta Ends Here  */
 
 
 
@@ -428,19 +452,23 @@ body{
 
 
 
-
+/* Media Queries */
 
 
 @media (max-width: 1200px) {
     .veg-cards {
-        /* 4 columns */
+        
         width: calc(25% - 20px);
     }
 }
 @media (max-width: 992px) {
     .veg-cards {
-        /* 3 columns */
+        
         width: calc(33.33% - 20px);
+    }
+    .details-main {
+       
+        flex-direction: column;
     }
 }
 
@@ -485,7 +513,10 @@ body{
         width: calc(50% - 20px)
 
     }
-    
+    .ingredients ul li, .measures-items ul li {
+        
+        width: 100%;
+    }
 }
 @media (max-width :480px){
     .container{
@@ -496,13 +527,16 @@ body{
         width: 100%;
     }
     .veg-cards {
-        /* 1 column */
+       
         width: 100%;
         max-width: 350px;
     }
     .veg-cards img{
         width: 100%
 
+    }
+    .bainganbhartaimg img{
+        width: 80%;
     }
 }
 
