@@ -49,7 +49,7 @@ body{
     background-image: url(./assets/table.jpg);
     background-size: cover;
     width: 100%;
-    height: 50vh; 
+    height: 70vh; 
     position: relative;
     justify-content: center;
     align-items: center;
@@ -65,17 +65,18 @@ body{
 .search-bar input{
     display: flex;
     width: 1000px;
-    height: 5vh;
-    border-radius: 3vw;
+    height: 50px;
+    border-radius: 25px;
     font-size: 2.3vh;
+    /* padding: 0 10px; */
     
 }
 .search-bar button{
     border-radius: 50%;
     background-color: rgba(254, 87, 26, 1);
     color: white;
-    width: 100px;
-    height: 5vh;
+    width: 150px;
+    /* height: 50px; */
     border: 1px solid white;
     cursor: pointer;
 }
@@ -97,6 +98,7 @@ body{
 /* Categories Starts Here  */
 .categories-header h1{
     padding: 0 5vw;
+    margin-top: 10vh;
     margin-bottom: 0.9vh;
     font-weight: 600;
     font-size: 25px;
@@ -107,7 +109,7 @@ body{
     border: 3.5px solid rgba(254, 87, 26, 1);
     width: 60px;
     margin-left: 5vw;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .cards{
@@ -159,7 +161,7 @@ body{
     margin:7vh auto;
     width: 80vw;
     border: 2px solid rgba(254, 87, 26, 1);
-    background-color: whitesmoke;
+    background-color: rgba(211, 211, 211, 0.068);
 
 }
 .categories-veg h2{
@@ -247,6 +249,7 @@ body{
 }
 .details-main{
     display: flex;
+    flex-wrap: wrap;
 }
 
 .bainganbhartaimg img{
@@ -301,7 +304,7 @@ body{
 }
 .ingredients{
     background-color:rgba(254, 87, 26, 1) ;
-    width: 100%;
+    width: 90%;
     height: auto;
     color: white;
     border-radius: 5px;
@@ -336,7 +339,6 @@ body{
     background-color: rgb(4, 101, 142);
     border-radius: 50%;
     border: 1px solid white;
-  
     width: 28px;
     height: 28px;
     display: inline-flex;
@@ -405,10 +407,11 @@ body{
     margin-left: 2.2vw;
     font-size: 20px;
 }
+
 .instructions-list ul {
     list-style: none;
     
-    width: 60vw;
+    width: 80%;
     margin: 0;
 
 }
@@ -460,6 +463,10 @@ body{
         
         width: calc(25% - 20px);
     }
+    .details-main{
+        /* width: 70%; */
+    }
+    
 }
 @media (max-width: 992px) {
     .veg-cards {
@@ -481,13 +488,16 @@ body{
     .container{
        height: 100%;
     }
+    .search{
+        margin-top:5vh ;
+    }
     .search-bar input{
-        width: 60%; 
+        justify-content: center;
+        width: 50%; 
         height: 48px;
         border-radius: 24px;
         font-size: 1rem;
-        padding: 0 1rem;
-        margin: auto;
+        margin-left: 130px;
 
     }
     .search-bar button{
@@ -506,11 +516,22 @@ body{
         font-size: 1rem; 
     }
     
+    
     .cards img{
         width: calc(50% - 20px);
+        
     }
+    .cards-item{
+        height: 150px;
+        margin-right: 70px;
+    }
+    .cards-item img {
+        height: 100%;
+        width: 100%;
+    }
+
     .veg-cards img{
-        width: calc(50% - 20px)
+        /* width: calc(50% - 20px); */
 
     }
     .ingredients ul li, .measures-items ul li {
@@ -518,12 +539,27 @@ body{
         width: 100%;
     }
 }
-@media (max-width :480px){
+@media (max-width :426px){
     .container{
         background-color: whitesmoke;
         height: 100%;
+        width: 100%;
     }
-    .cards img{
+    .search-bar input{
+        width: 200px;
+        margin: 0px 10px;
+        margin-left: 50px;
+       
+         
+    }
+    /* .cards img{
+        width: 100%;
+    } */
+    .cards-item{
+        width: 900px;
+        /* margin-left: 70px; */
+    }
+    .cards-item img{
         width: 100%;
     }
     .veg-cards {
@@ -535,9 +571,36 @@ body{
         width: 100%
 
     }
-    .bainganbhartaimg img{
-        width: 80%;
+    /* .details-main{
+        width: 300px;
+    } */
+    #source {
+        /* display: flex;
+        flex-wrap: wrap;
+        height: 100px; */
+        font-size: 2vh;
+
     }
+    .bainganbhartaimg {
+        width: 80%;
+    } 
+    .bainganbhartaimg img{
+        width: 100%;
+    }
+    .baingan-ingredients h4{
+        width: 250px;
+    }
+    .baingan-ingredients p{
+        width: 250px;
+        height: 30px;
+        /* display: flex; */
+    }
+    .ingredients {
+        width: 250px;
+
+    }
+
+
 }
 
 
