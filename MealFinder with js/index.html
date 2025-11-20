@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MealFinder</title>
+
+  <link rel="stylesheet" href="./style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <!-- Navbar (shared) -->
+  <header class="navbar">
+    <div class="nav-header">
+      <a href="#/">
+        <p><i class="fa-solid fa-house fa-lg"></i> MealFinder.</p>
+      </a>
+    </div>
+    <div class="nav-ham" aria-label="Open menu" role="button" tabindex="0">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- Drawer (shared) -->
+  <div class="drawer-overlay" id="drawerOverlay" hidden></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Categories menu">
+    <div class="drawer-header">
+      <h3>Categories</h3>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
+    </div>
+    <nav class="drawer-body">
+      <ul id="drawerList" class="drawer-list"></ul>
+    </nav>
+  </aside>
+
+  <!-- App container (router renders here) -->
+  <main id="app" class="container"></main>
+
+  <script src="./script.js" defer></script>
+</body>
+</html>

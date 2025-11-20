@@ -1,0 +1,310 @@
+.credit {
+  margin-top: auto; 
+  text-align: center;
+  font-size: 15px;
+  color: #666;
+  padding-top: 12px;
+  opacity: 0.8;
+}
+
+.credit span {
+  font-weight: 600;
+  color: #444;
+}
+
+.app {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.app-card {
+  width: 100%;
+  max-width: 1350px;
+  min-height: 600px;
+   background: rgba(248, 249, 252, 0.80);
+   backdrop-filter: blur(4px); 
+  border-radius: 24px;
+  display: flex;
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 24%;
+  min-width: 240px;
+  background: rgba(255, 255, 255, 0.18); 
+   background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px) saturate(180%);
+  border-right: 1px solid rgba(255, 255, 255, 0.25); 
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+}
+
+
+.search-bar {
+  display: flex;
+  margin-bottom: 32px;
+  background: #f3f4f7;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: transparent;
+  outline: none;
+}
+
+.search-bar button {
+  width: 52px;
+  border: none;
+  background: #4b7fff;
+  cursor: pointer;
+}
+
+.sidebar-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.sidebar-icon {
+  width: 120px;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.sidebar-temp {
+  font-size: 52px;
+  font-weight: 500;
+}
+
+.sidebar-date {
+  margin-top: 8px;
+  color: #555;
+  font-size: 18px;
+  text-align: left;
+}
+
+.sidebar-divider {
+  margin: 16px 0 10px;
+  height: 1px;
+  background: rgba(25, 21, 21, 0.6);
+  opacity: 0.6;
+}
+
+.sidebar-desc {
+  font-size: 18px;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.sidebar-precip {
+  font-size: 18px;
+  color: #000000;
+  text-align: center;
+}
+
+.sidebar-location {
+  margin-top: auto;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  color: #333;
+  opacity: 0.9;
+}
+
+/* MAIN */
+
+.main {
+  flex: 1;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tabs & units */
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.tab-switch {
+  display: flex;
+  gap: 16px;
+}
+
+.tab {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  padding-bottom: 4px;
+  cursor: pointer;
+  color: #888;
+}
+
+.tab.active {
+  color: #111;
+  border-bottom: 2px solid #4b7fff;
+}
+
+.unit-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.unit {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.unit.active {
+  background: #111;
+  color: #fff;
+}
+
+/* Cards */
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.cards-row {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr)); 
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.weather-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 12px 10px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  min-width: unset;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+.weather-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15);
+}
+
+.week-card {
+  min-width: unset;
+}
+
+.weather-card-time {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.weather-card-icon {
+  width: 40px;
+  margin-bottom: 8px;
+}
+
+.weather-card-temp {
+  font-size: 14px;
+}
+
+
+/* Highlights */
+
+.highlights {
+    margin-top: auto;
+}
+
+.highlights-heading {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.highlight-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px 18px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+ 
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+    
+}
+
+.highlight-title {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+.highlight-value {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.highlight-extra {
+  font-size: 12px;
+  color: #666;
+}
+
+.highlight-label {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .app-card {
+    flex-direction: column;
+    max-height: none;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: column;
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .highlights-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
