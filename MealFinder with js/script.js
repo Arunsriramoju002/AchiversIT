@@ -1,11 +1,14 @@
-// app.js — Single Page App with hash routing (with live meals preview on Home search)
+// app.js — Single Page App with hash routing + global hero search
 
+// ---------- API ENDPOINTS ----------
 const API = {
   categories: "https://www.themealdb.com/api/json/v1/1/categories.php",
   filterByCategory: (c) =>
     `https://www.themealdb.com/api/json/v1/1/filter.php?c=${encodeURIComponent(c)}`,
   lookupById: (id) =>
     `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${encodeURIComponent(id)}`,
+  searchByName: (name) =>
+    `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(name)}`,
 };
 
 // ---------- Drawer (shared) ----------
@@ -41,6 +44,10 @@ async function loadDrawerCategories() {
     const res = await fetch(API.categories);
     const data = await res.json();
     const cats = Array.isArray(data?.categories) ? data.categories : [];
+    
+    // 🔹 store globally so CategoryController can use descriptions
+    window._allCategories = cats;
+
     list.innerHTML = "";
     cats.forEach((cat) => {
       const li = document.createElement("li");
@@ -52,24 +59,46 @@ async function loadDrawerCategories() {
       list.appendChild(li);
     });
   } catch {
-    // optional
+    // optional: fail silently
   }
 }
 
-// ---------- Views ----------
-function ViewHome() {
-  // Added Results section under categories to show live meals for best-matched category
+
+// ---------- Shared hero (search + text) ----------
+function ViewHero() {
   return `
     <section class="search">
       <div class="search-bar">
-        <input id="searchInput" type="text" placeholder=" category" />
+        <input id="searchInput" type="text" placeholder="Search recipes here ..." />
         <button id="searchBtn" type="button" aria-label="Search">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
+      <p id="search-text1">What are your favorite cuisines?</p>
       <p id="search-text2">PERSONALIZE YOUR EXPERIENCE</p>
     </section>
+  `;
+}
 
+// ---------- Views ----------
+function ViewHome() {
+  return `
+    ${ViewHero()}
+
+    <!-- MEAL SEARCH RESULTS -->
+    <section id="resultsWrap" class="mf-results" style="display:none;">
+      <div class="categories-header">
+        <h1>MEALS</h1>
+      </div>
+      <div class="border"></div>
+
+      <p id="resultsLoading" class="status" style="margin-top:0;">Loading meals…</p>
+      <p id="resultsError" class="status error" hidden>No meals found. Try another name.</p>
+
+      <div id="resultsGrid" class="mf-meal-grid"></div>
+    </section>
+
+    <!-- CATEGORIES -->
     <section class="categories">
       <div class="categories-header">
         <h1>C A T E G O R I E S</h1>
@@ -83,27 +112,24 @@ function ViewHome() {
       <p id="loading" class="status">Loading categories…</p>
       <p id="error" class="status error" hidden>Couldn’t load categories. Please try again.</p>
     </section>
-
-    <!-- Live meals preview for best-matched category -->
-    <section id="resultsWrap" class="mf-results" style="display:none;">
-      <div class="mf-results-head">
-        <h2 id="resultsTitle">Meals</h2>
-        <button id="resultsViewAll" class="mf-results-close" title="Open full category view">→</button>
-      </div>
-      <p id="resultsLoading" class="status" style="margin-top:0;">Loading meals…</p>
-      <p id="resultsError" class="status error" hidden>Couldn’t load meals for this category.</p>
-      <div id="resultsGrid" class="mf-meal-grid"></div>
-    </section>
   `;
 }
 
 function ViewCategory(category) {
   return `
+    ${ViewHero()}
+
     <section class="categories" style="padding-top:8px;">
       <div class="categories-header">
         <h1 id="catTitle">${category ? category : "Category"}</h1>
       </div>
       <div class="border"></div>
+
+      <!-- Category description card -->
+      <div class="category-desc" id="catDescWrap" hidden>
+        <p id="catDesc"></p>
+      </div>
+
       <p id="catLoading" class="status">Loading meals…</p>
       <p id="catError" class="status error" hidden>Couldn’t load meals for this category.</p>
     </section>
@@ -114,79 +140,123 @@ function ViewCategory(category) {
   `;
 }
 
+// Single meal page using your Baingan Bharta layout/CSS
 function ViewMeal() {
   return `
-    <div class="mf-breadcrumb" id="crumb"></div>
+    ${ViewHero()}
 
-    <section class="mf-meal-hero">
-      <div class="categories-header">
-        <h1 id="mealTitle">Meal</h1>
-      </div>
-      <div class="border"></div>
+    <div class="bainganbhartapage">
+      <a href="#/"><i class="fa-solid fa-house fa-lg"></i></a>
+      <span id="breadcrumbText">> M E A L</span>
+    </div>
+
+    <div class="details-header">
+      <h1>M E A L D E T A I L S</h1>
+    </div>
+    <div class="border-baingan"></div>
+
+    <div class="details-table">
       <p id="mealLoading" class="status">Loading meal…</p>
       <p id="mealError" class="status error" hidden>Couldn’t load this meal.</p>
-    </section>
 
-    <div class="mf-meta" id="meta"></div>
-    <div class="mf-pills" id="tags"></div>
+      <div class="details-main" id="details" hidden>
+        <div class="bainganbhartaimg">
+          <img id="mealThumb" src="" alt="">
+        </div>
 
-    <section class="mf-two-col" id="details" hidden>
-      <div class="mf-left">
-        <img id="thumb" class="mf-cover" src="" alt=""/>
-        <div class="mf-section">
-          <h3>Ingredients</h3>
-          <div class="mf-body">
-            <ul id="ingList" class="ingredients-list" style="list-style:none; padding:0; margin:0;"></ul>
+        <div class="baingan-ingredients">
+          <h4 id="mealTitle">Meal</h4>
+
+          <p>
+            <strong>CATEGORY:</strong>
+            <span id="mealCategory"></span>
+          </p>
+
+          <p id="sourceLine">
+            <strong>Source:</strong>
+            <a id="sourceLink" href="#" target="_blank" rel="noopener"></a>
+          </p>
+
+          <p id="tags">
+            <strong>Tags:</strong>
+            <span id="tagsWrap"></span>
+          </p>
+
+          <div class="ingredients">
+            <h1>Ingredients</h1>
+            <ul id="ingredientsList"></ul>
           </div>
         </div>
       </div>
-      <div class="mf-right">
-        <div class="mf-section">
-          <h3>Instructions</h3>
-          <div class="mf-body" id="instructions"></div>
+
+      <div class="measure" id="measureBlock" hidden>
+        <div class="measure-header">
+          <p>Measure:</p>
         </div>
-        <div class="mf-section">
-          <h3>Extras</h3>
-          <div class="mf-body">
-            <div id="youtube"></div>
-            <div id="sourceWrap" style="margin-top:8px;"></div>
-          </div>
+        <div class="measures-items">
+          <ul id="measureList"></ul>
         </div>
       </div>
-    </section>
+
+      <div class="instructions" id="instructionsBlock" hidden>
+        <div class="instructions-header">
+          <h1>Instructions</h1>
+        </div>
+        <div class="instructions-list">
+          <ul id="instructionsList"></ul>
+        </div>
+      </div>
+    </div>
   `;
 }
 
+// ---------- Shared search initialiser (works on every page) ----------
+function initSearchBar(initialQuery = "") {
+  const input = document.getElementById("searchInput");
+  const btn = document.getElementById("searchBtn");
+  if (!input || !btn) return;
+
+  if (initialQuery) input.value = initialQuery;
+
+  function submit() {
+    const raw = (input.value || "").trim();
+    if (!raw) return;
+
+    // If only digits → treat as meal ID
+    if (/^\d+$/.test(raw)) {
+      location.hash = `#/meal/${raw}`;
+      return;
+    }
+
+    // Normal text → go to search route handled by Home
+    location.hash = `#/search/${encodeURIComponent(raw)}`;
+  }
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") submit();
+  });
+  btn.addEventListener("click", submit);
+}
+
 // ---------- Controllers ----------
-async function HomeController() {
+
+// Home: categories + optional search results
+async function HomeController(initialQuery = "") {
   const el = {
     cards: document.getElementById("cards"),
     loading: document.getElementById("loading"),
     error: document.getElementById("error"),
-    searchInput: document.getElementById("searchInput"),
-    searchBtn: document.getElementById("searchBtn"),
-    // results
     resultsWrap: document.getElementById("resultsWrap"),
-    resultsTitle: document.getElementById("resultsTitle"),
     resultsGrid: document.getElementById("resultsGrid"),
     resultsLoading: document.getElementById("resultsLoading"),
     resultsError: document.getElementById("resultsError"),
-    resultsViewAll: document.getElementById("resultsViewAll"),
   };
 
   let categories = [];
-  let lastMatch = ""; // remember the last matched category for "View all"
 
-  // --- helpers ---
-  const debounce = (fn, ms = 300) => {
-    let t;
-    return (...args) => {
-      clearTimeout(t);
-      t = setTimeout(() => fn(...args), ms);
-    };
-  };
+  initSearchBar(initialQuery);
 
-  function buildCard(cat) {
+  function buildCategoryCard(cat) {
     const item = document.createElement("div");
     item.className = "cards-item";
     item.innerHTML = `
@@ -204,80 +274,7 @@ async function HomeController() {
       el.cards.innerHTML = `<p class="status">No categories found.</p>`;
       return;
     }
-    list.forEach((c) => el.cards.appendChild(buildCard(c)));
-  }
-
-  function mealCard(m) {
-    const card = document.createElement("div");
-    card.className = "mf-meal-card";
-    card.innerHTML = `
-      <img class="mf-meal-thumb" src="${m.strMealThumb}" alt="${m.strMeal}">
-      <div class="mf-meal-name">${m.strMeal}</div>
-    `;
-    card.addEventListener("click", () => (location.hash = `#/meal/${m.idMeal}`));
-    return card;
-  }
-
-  function showResults(show) {
-    el.resultsWrap.style.display = show ? "" : "none";
-  }
-
-  function resetResults() {
-    el.resultsGrid.innerHTML = "";
-    el.resultsError.hidden = true;
-    el.resultsLoading.hidden = true;
-  }
-
-  function bestCategoryMatch(q) {
-    if (!q) return null;
-    const lc = q.toLowerCase().trim();
-    // exact (case-insensitive)
-    let found = categories.find(c => (c.strCategory || "").toLowerCase() === lc);
-    if (found) return found.strCategory;
-
-    // "veg" convenience → Vegetarian
-    if (lc === "veg" || lc === "veget" || lc === "veggie") {
-      found = categories.find(c => /^vegetarian$/i.test(c.strCategory));
-      if (found) return found.strCategory;
-    }
-
-    // prefix match
-    found = categories.find(c => (c.strCategory || "").toLowerCase().startsWith(lc));
-    if (found) return found.strCategory;
-
-    // substring match
-    found = categories.find(c => (c.strCategory || "").toLowerCase().includes(lc));
-    return found ? found.strCategory : null;
-  }
-
-  async function renderMealsPreview(categoryName) {
-    resetResults();
-    if (!categoryName) {
-      showResults(false);
-      return;
-    }
-    lastMatch = categoryName;
-    el.resultsTitle.textContent = `Meals in ${categoryName}`;
-    showResults(true);
-    el.resultsLoading.hidden = false;
-
-    try {
-      const res = await fetch(API.filterByCategory(categoryName));
-      if (!res.ok) throw new Error("net");
-      const data = await res.json();
-      const meals = Array.isArray(data?.meals) ? data.meals : null;
-      el.resultsLoading.hidden = true;
-      if (!meals || meals.length === 0) {
-        el.resultsError.hidden = false;
-        return;
-      }
-      // Render up to 12 preview meals
-      el.resultsGrid.innerHTML = "";
-      meals.slice(0, 12).forEach((m) => el.resultsGrid.appendChild(mealCard(m)));
-    } catch {
-      el.resultsLoading.hidden = true;
-      el.resultsError.hidden = false;
-    }
+    list.forEach((c) => el.cards.appendChild(buildCategoryCard(c)));
   }
 
   async function loadCategories() {
@@ -296,66 +293,94 @@ async function HomeController() {
     }
   }
 
-  // --- Searching behaviour on Home ---
-  function normalizeCategoryName(q) {
-    return q.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1).toLowerCase());
+  function hideResults() {
+    if (!el.resultsWrap) return;
+    el.resultsWrap.style.display = "none";
+    el.resultsGrid.innerHTML = "";
+    el.resultsError.hidden = true;
+    el.resultsLoading.hidden = true;
   }
 
-  // Enter / button → navigate
-  function goSearchRoute() {
-    const raw = (el.searchInput?.value || "").trim();
-    if (!raw) return;
-
-    // digits only → meal by ID
-    if (/^\d+$/.test(raw)) {
-      location.hash = `#/meal/${raw}`;
-      return;
-    }
-
-    const match = bestCategoryMatch(raw) || normalizeCategoryName(raw);
-    location.hash = `#/category/${encodeURIComponent(match)}`;
-  }
-
-  // Live preview → debounce
-  const onType = debounce(async () => {
-    const q = (el.searchInput?.value || "").trim();
+  async function searchMealsByName(query) {
+    const q = query.trim();
     if (!q) {
-      // empty → hide results + show original categories (already visible)
-      showResults(false);
-      renderCategories(categories);
+      hideResults();
       return;
     }
-    // if digits, hint meal id: show no preview, wait for Enter (or you can auto-route)
-    if (/^\d+$/.test(q)) {
-      showResults(false);
-      return;
-    }
-    const match = bestCategoryMatch(q);
-    await renderMealsPreview(match);
-    // also softly filter the visible category cards as user types
-    renderCategories(
-      categories.filter(c => (c.strCategory || "").toLowerCase().includes(q.toLowerCase()))
-    );
-  }, 300);
 
-  // Wire events
-  el.searchInput?.addEventListener("input", onType);
-  el.searchInput?.addEventListener("keydown", (e) => { if (e.key === "Enter") goSearchRoute(); });
-  el.searchBtn?.addEventListener("click", goSearchRoute);
-  el.resultsViewAll?.addEventListener("click", () => {
-    if (lastMatch) location.hash = `#/category/${encodeURIComponent(lastMatch)}`;
-  });
+    el.resultsWrap.style.display = "";
+    el.resultsGrid.innerHTML = "";
+    el.resultsError.hidden = true;
+    el.resultsLoading.hidden = false;
+
+    try {
+      const res = await fetch(API.searchByName(q));
+      if (!res.ok) throw new Error("net");
+      const data = await res.json();
+      const meals = Array.isArray(data?.meals) ? data.meals : null;
+
+      el.resultsLoading.hidden = true;
+
+      if (!meals || meals.length === 0) {
+        el.resultsError.hidden = false;
+        return;
+      }
+
+      meals.forEach((m) => {
+        const card = document.createElement("div");
+        card.className = "mf-meal-card";
+        card.innerHTML = `
+          <img class="mf-meal-thumb" src="${m.strMealThumb}" alt="${m.strMeal}">
+          <div class="mf-meal-name">${m.strMeal}</div>
+        `;
+        card.addEventListener("click", () => {
+          location.hash = `#/meal/${m.idMeal}`;
+        });
+        el.resultsGrid.appendChild(card);
+      });
+    } catch {
+      el.resultsLoading.hidden = true;
+      el.resultsError.hidden = false;
+    }
+  }
 
   await loadCategories();
+
+  if (initialQuery) {
+    await searchMealsByName(initialQuery);
+  } else {
+    hideResults();
+  }
 }
 
+// Category: list meals in that category
 async function CategoryController(category) {
+  initSearchBar(); // hero search active on this page
+
   const el = {
     catTitle: document.getElementById("catTitle"),
     mealsGrid: document.getElementById("mealsGrid"),
     catLoading: document.getElementById("catLoading"),
     catError: document.getElementById("catError"),
+    catDescWrap: document.getElementById("catDescWrap"),
+    catDesc: document.getElementById("catDesc"),
   };
+
+  function setCategoryDescription(name) {
+    if (!el.catDescWrap || !el.catDesc || !name) return;
+
+    const cats = window._allCategories || [];
+    const match = cats.find(
+      (c) => (c.strCategory || "").toLowerCase() === name.toLowerCase()
+    );
+
+    if (match && match.strCategoryDescription) {
+      el.catDesc.textContent = match.strCategoryDescription.trim();
+      el.catDescWrap.hidden = false;
+    } else {
+      el.catDescWrap.hidden = true;
+    }
+  }
 
   function mealCard(m) {
     const card = document.createElement("div");
@@ -370,6 +395,10 @@ async function CategoryController(category) {
 
   async function loadMeals() {
     el.catTitle.textContent = category || "Category";
+
+    // 🔹 show description under title
+    setCategoryDescription(category);
+
     el.catLoading.hidden = false;
     el.catError.hidden = true;
     el.mealsGrid.innerHTML = "";
@@ -394,89 +423,118 @@ async function CategoryController(category) {
   await loadMeals();
 }
 
+
+// Meal: Baingan-style layout filled from API
 async function MealController(id) {
+  initSearchBar(); // hero search active on meal page
+
   const el = {
-    crumb: document.getElementById("crumb"),
+    breadcrumbText: document.getElementById("breadcrumbText"),
     mealTitle: document.getElementById("mealTitle"),
+    mealThumb: document.getElementById("mealThumb"),
+    mealCategory: document.getElementById("mealCategory"),
+    sourceLine: document.getElementById("sourceLine"),
+    sourceLink: document.getElementById("sourceLink"),
+    tagsWrap: document.getElementById("tagsWrap"),
+    ingredientsList: document.getElementById("ingredientsList"),
+    measureList: document.getElementById("measureList"),
+    instructionsList: document.getElementById("instructionsList"),
+    details: document.getElementById("details"),
+    measureBlock: document.getElementById("measureBlock"),
+    instructionsBlock: document.getElementById("instructionsBlock"),
     mealLoading: document.getElementById("mealLoading"),
     mealError: document.getElementById("mealError"),
-    meta: document.getElementById("meta"),
-    tags: document.getElementById("tags"),
-    details: document.getElementById("details"),
-    thumb: document.getElementById("thumb"),
-    ingList: document.getElementById("ingList"),
-    instructions: document.getElementById("instructions"),
-    youtube: document.getElementById("youtube"),
-    sourceWrap: document.getElementById("sourceWrap"),
   };
 
-  function setBreadcrumb(name, category) {
-    el.crumb.innerHTML = [
-      `<a href="#/">Home</a>`,
-      category ? `<span>/</span> <a href="#/category/${encodeURIComponent(category)}">${category}</a>` : "",
-      `<span>/</span> <span>${name || "Meal"}</span>`,
-    ].join(" ");
+  function setBreadcrumb(name) {
+    if (!el.breadcrumbText) return;
+    el.breadcrumbText.textContent = `> ${name || "Meal"}`;
   }
 
-  function renderIngredients(meal) {
-    el.ingList.innerHTML = "";
+  function renderIngredientsAndMeasures(meal) {
+    if (!el.ingredientsList || !el.measureList) return;
+
+    el.ingredientsList.innerHTML = "";
+    el.measureList.innerHTML = "";
+
+    let idx = 1;
     for (let i = 1; i <= 20; i++) {
       const ing = meal[`strIngredient${i}`];
       const meas = meal[`strMeasure${i}`];
       if (ing && ing.trim()) {
-        const li = document.createElement("li");
-        li.style.margin = "6px 0";
-        li.innerHTML = `<strong>${ing}</strong>${meas ? " — " + meas : ""}`;
-        el.ingList.appendChild(li);
+        const liIng = document.createElement("li");
+        liIng.innerHTML = `<span>${idx}</span> ${ing}`;
+        el.ingredientsList.appendChild(liIng);
+
+        const liMeas = document.createElement("li");
+        liMeas.innerHTML = `<i class="fa-solid fa-spoon"></i> ${meas ? meas.trim() : ""}`;
+        el.measureList.appendChild(liMeas);
+
+        idx++;
       }
     }
   }
 
   function renderTags(tagsStr) {
-    el.tags.innerHTML = "";
-    if (!tagsStr) return;
+    if (!el.tagsWrap) return;
+    el.tagsWrap.innerHTML = "";
+
+    if (!tagsStr) {
+      el.tagsWrap.textContent = "None";
+      return;
+    }
+
     tagsStr
       .split(",")
       .map((t) => t.trim())
       .filter(Boolean)
       .forEach((t) => {
-        const pill = document.createElement("span");
-        pill.className = "mf-pill";
-        pill.textContent = t;
-        el.tags.appendChild(pill);
+        const btn = document.createElement("button");
+        btn.textContent = t;
+        el.tagsWrap.appendChild(btn);
       });
   }
 
-  function renderMeta({ strArea, strCategory }) {
-    const bits = [];
-    if (strCategory) bits.push(`Category: <a href="#/category/${encodeURIComponent(strCategory)}">${strCategory}</a>`);
-    if (strArea) bits.push(`Area: ${strArea}`);
-    el.meta.innerHTML = bits.join(" · ");
+  function renderMeta(meal) {
+    if (el.mealCategory) {
+      const cat = (meal.strCategory || "").toUpperCase();
+      el.mealCategory.textContent = cat;
+    }
+
+    if (el.sourceLine && el.sourceLink) {
+      if (meal.strSource) {
+        el.sourceLink.href = meal.strSource;
+        el.sourceLink.textContent = meal.strSource;
+        el.sourceLine.style.display = "block";
+      } else {
+        el.sourceLine.style.display = "none";
+      }
+    }
   }
 
-  function renderExtras({ strYoutube, strSource }) {
-    el.youtube.innerHTML = "";
-    el.sourceWrap.innerHTML = "";
-    if (strYoutube) {
-      const a = document.createElement("a");
-      a.href = strYoutube;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.className = "mf-yt";
-      a.innerHTML = '<i class="fa-brands fa-youtube"></i> Watch on YouTube';
-      el.youtube.appendChild(a);
-    }
-    if (strSource) {
-      const p = document.createElement("p");
-      p.innerHTML = `Source: <a class="mf-source" href="${strSource}" target="_blank" rel="noopener">${strSource}</a>`;
-      el.sourceWrap.appendChild(p);
-    }
+  function renderInstructions(text) {
+    if (!el.instructionsList) return;
+    el.instructionsList.innerHTML = "";
+    if (!text) return;
+
+    const lines = text
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean);
+
+    lines.forEach((line, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<i class="fa-regular fa-square-check"></i>${index + 1}. ${line}`;
+      el.instructionsList.appendChild(li);
+    });
   }
 
   async function loadMeal() {
-    el.mealLoading.hidden = false;
-    el.mealError.hidden = true;
-    el.details.hidden = true;
+    if (el.mealLoading) el.mealLoading.hidden = false;
+    if (el.mealError) el.mealError.hidden = true;
+    if (el.details) el.details.hidden = true;
+    if (el.measureBlock) el.measureBlock.hidden = true;
+    if (el.instructionsBlock) el.instructionsBlock.hidden = true;
 
     try {
       const res = await fetch(API.lookupById(id));
@@ -484,33 +542,30 @@ async function MealController(id) {
       const data = await res.json();
       const meal = Array.isArray(data?.meals) ? data.meals[0] : null;
       if (!meal) {
-        el.mealError.hidden = false;
+        if (el.mealError) el.mealError.hidden = false;
         return;
       }
 
-      el.mealTitle.textContent = meal.strMeal || "Meal";
-      setBreadcrumb(meal.strMeal, meal.strCategory);
-      el.thumb.src = meal.strMealThumb || "";
-      el.thumb.alt = meal.strMeal || "Meal image";
+      if (el.mealThumb) {
+        el.mealThumb.src = meal.strMealThumb || "";
+        el.mealThumb.alt = meal.strMeal || "Meal image";
+      }
+
+      if (el.mealTitle) el.mealTitle.textContent = meal.strMeal || "Meal";
+      setBreadcrumb(meal.strMeal);
 
       renderMeta(meal);
       renderTags(meal.strTags);
-      renderIngredients(meal);
+      renderIngredientsAndMeasures(meal);
+      renderInstructions(meal.strInstructions);
 
-      el.instructions.innerHTML = (meal.strInstructions || "")
-        .split(/\r?\n\r?\n/)
-        .map((p) => p.trim())
-        .filter(Boolean)
-        .map((p) => `<p style="margin:8px 0; line-height:1.7;">${p}</p>`)
-        .join("");
-
-      renderExtras(meal);
-
-      el.details.hidden = false;
+      if (el.details) el.details.hidden = false;
+      if (el.measureBlock) el.measureBlock.hidden = false;
+      if (el.instructionsBlock) el.instructionsBlock.hidden = false;
     } catch {
-      el.mealError.hidden = false;
+      if (el.mealError) el.mealError.hidden = false;
     } finally {
-      el.mealLoading.hidden = true;
+      if (el.mealLoading) el.mealLoading.hidden = true;
     }
   }
 
@@ -520,15 +575,25 @@ async function MealController(id) {
 // ---------- Router ----------
 function parseRoute() {
   const hash = location.hash.replace(/^#/, "");
-  const [ , route, param ] = hash.split("/");
+  const [, route, param] = hash.split("/");
 
-  if (!route) return { view: "home" };
-  if (route.toLowerCase() === "category") return { view: "category", param: decodeURIComponent(param || "") };
-  if (route.toLowerCase() === "meal") return { view: "meal", param: decodeURIComponent(param || "") };
-  return { view: "home" };
+  if (!route) return { view: "home", param: "" };
+
+  if (route.toLowerCase() === "search") {
+    return { view: "home", param: decodeURIComponent(param || "") };
+  }
+  if (route.toLowerCase() === "category") {
+    return { view: "category", param: decodeURIComponent(param || "") };
+  }
+  if (route.toLowerCase() === "meal") {
+    return { view: "meal", param: decodeURIComponent(param || "") };
+  }
+
+  return { view: "home", param: "" };
 }
 
 async function render() {
+  // init shared drawer once
   window._drawerInited || (initDrawer(), (window._drawerInited = true));
   window._drawerCatsLoaded || (await loadDrawerCategories(), (window._drawerCatsLoaded = true));
 
@@ -538,19 +603,22 @@ async function render() {
 
   if (view === "home") {
     app.innerHTML = ViewHome();
-    await HomeController();
+    await HomeController(param); // param = "" or search query
     return;
   }
+
   if (view === "category") {
     app.innerHTML = ViewCategory(param);
     await CategoryController(param);
     return;
   }
+
   if (view === "meal") {
     app.innerHTML = ViewMeal();
     await MealController(param);
     return;
   }
+
   app.innerHTML = ViewHome();
   await HomeController();
 }

@@ -11,7 +11,7 @@ body {
   background: #fafafa;
   color: #222;
   overflow-x: hidden;
-  /* navbar is fixed at 50px */
+
   padding-top: 50px;
 }
 a { text-decoration: none; color: inherit; }
@@ -31,7 +31,7 @@ a { text-decoration: none; color: inherit; }
   top: 0; left: 0;
   z-index: 10000;
 }
-/* avoid styling all <p> */
+
 .nav-header a, .nav-header p{
   color: white;
   text-decoration: none;
@@ -81,7 +81,7 @@ a { text-decoration: none; color: inherit; }
 /* =========================================================
    CATEGORIES (title + border)
    ========================================================= */
-/* .categories{ padding: 24px 0 10px; text-align: center; } */
+
 .categories-header h1{
   padding: 0 5vw;
     margin-top: 10vh;
@@ -100,9 +100,9 @@ a { text-decoration: none; color: inherit; }
    CATEGORY CARDS — flex + hover (per your second CSS)
    ========================================================= */
 .cards{
-  display: flex;          /* flex (not grid) */
+  display: flex;      
   flex-wrap: wrap;
-  padding: 0 5vw;         /* original spacing */
+  padding: 0 5vw;       
   position: relative;
 }
 .cards-item{
@@ -113,7 +113,7 @@ a { text-decoration: none; color: inherit; }
 }
 .cards-item a{ display:block; }
 .cards-item img{
-  width: 16vw;            /* second CSS behavior */
+  width: 16vw;          
   min-width: 160px;
   border-radius: 5px;
   cursor: pointer;
@@ -122,7 +122,7 @@ a { text-decoration: none; color: inherit; }
   transition: transform 0.5s ease-in-out;
 }
 .cards-item img:hover{ transform: scale(0.8); }
-/* label chip on top-left like second CSS */
+
 .cards-item span{
   position: absolute;
   left: 11vw; top: 1vh;
@@ -210,6 +210,246 @@ a { text-decoration: none; color: inherit; }
 .mf-breadcrumb{ display:flex; gap:8px; align-items:center; color:#333; padding: 0 5vw; }
 .mf-breadcrumb a{ color:#333; text-decoration:underline; }
 
+
+
+/* ==== SINGLE MEAL PAGE (Baingan-style layout) ==== */
+
+.bainganbhartapage  {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    color: white;
+    background-color: rgba(254, 87, 26, 1);
+    
+    
+    width: 90%;
+    margin: 7vh auto 0;
+    padding: 0 16px;
+}
+.bainganbhartapage i{
+    margin-right: 1vw;
+}
+.bainganbhartapage span{
+    font-weight: 500;
+}
+
+.details-header h1{
+    margin-left: 5%;
+    margin-top: 16px;
+    margin-bottom: 0.9vh;
+    font-weight: 600;
+    font-size: 25px;
+}
+.border-baingan{
+    border: 3.5px solid rgba(254, 87, 26, 1);
+    width: 140px;
+    margin-left: 5%;
+    margin-bottom: 20px;
+}
+
+/* main white card */
+.details-table{
+    background-color: white;
+    width: 90%;
+    margin: 0 auto 10vh;          
+    padding: 24px 24px 40px;      
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    border-radius: 6px;
+}
+.details-main{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+
+.bainganbhartaimg{
+    flex: 1 1 280px;
+}
+.bainganbhartaimg img{
+    width: 100%;
+    border-radius: 5px;
+    display: block;
+}
+
+
+.bainganbhartaimg,
+.baingan-ingredients{
+    min-width: 0;
+}
+.baingan-ingredients{
+    flex: 1 1 320px;
+}
+
+.baingan-ingredients h4{
+    color:rgba(254, 87, 26, 1);
+    font-size: 23px;
+    border-bottom: 1.6px solid rgba(254, 87, 26, 1);
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+}
+.baingan-ingredients p{
+    color: black;
+    line-height: 1.6;
+    margin: 4px 0;
+}
+#tags button{
+    background-color: white;
+    color: rgba(254, 87, 26, 1);
+    border: 1px solid  rgba(254, 87, 26,1);
+    border-radius: 5px;
+    margin-left: 0.5vw;
+    cursor: pointer;
+    padding: 3px 10px;
+    font-size: 0.8rem;
+}
+#tags button:hover{
+    color: white;
+    background-color: rgba(254, 87, 26, 1);
+    transition: 0.3s;
+}
+
+
+.ingredients{
+    background-color:rgba(254, 87, 26, 1);
+    width: 100%;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 10px 14px;
+    margin-top: 16px;
+}
+.ingredients h1{
+    font-size: 20px;
+    margin-left: 15px;
+    padding: 4px 10px 10px;
+}
+.ingredients ul{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.ingredients ul li {
+    color: white;
+    width: 50%;              
+    display: flex;
+    align-items: center; 
+    margin-bottom: 4px;
+}
+.ingredients ul li span{
+    background-color: rgb(4, 101, 142);
+    border-radius: 50%;
+    border: 1px solid white;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: 20px;
+    flex-shrink: 0;
+}
+
+/* measure section */
+.measure{
+    width: 100%;
+    margin-top: 24px;
+}
+.measure-header p{
+    color: black;
+    font-weight: 600;
+    margin: 0 0 8px 4px;
+}
+.measures-items{
+    background-color: whitesmoke;
+    border: 1px solid lightgrey;
+    width: 100%;
+    padding: 16px 12px 16px 0;
+}
+.measures-items ul{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    row-gap: 15px;
+}
+.measures-items ul li {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    font-weight: 530;
+}
+.measures-items ul li i{
+    color: rgba(254, 87, 26, 1);
+    width: 15px;
+    margin-right: 10px;
+    text-align: center;
+    margin-left: 3vw;
+}
+
+/* instructions */
+.instructions{
+    width: 100%;
+    margin-top: 24px;
+}
+.instructions-header h1{
+    color: black;
+    font-size: 20px;
+    margin: 0 0 12px 4px;
+}
+.instructions-list ul {
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.instructions-list ul li{
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+.instructions-list ul li i {
+    color: rgba(254, 87, 26, 1);
+    margin-right: 1vw;
+    padding-top: 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* =========================================================
    MEDIA QUERIES
    ========================================================= */
@@ -234,4 +474,22 @@ a { text-decoration: none; color: inherit; }
   .cards-item{ width: 100%; margin-right: 0; }
   .cards-item img{ width: 100%; max-width: 100%; height: 150px; }
   .drawer{ width: 88vw; }
+}
+@media (max-width: 768px){
+    .details-main{
+        flex-direction: column;
+    }
+    .ingredients ul li{
+        width: 100%;
+    }
+    .measures-items ul li{
+        width: 100%;
+    }
+    .bainganbhartapage{
+        width: 95%;
+    }
+    .details-table{
+        width: 95%;
+        padding: 16px 16px 28px;
+    }
 }
