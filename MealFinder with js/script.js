@@ -1,4 +1,4 @@
-// app.js — Single Page App with hash routing + global hero search
+
 
 // ---------- API ENDPOINTS ----------
 const API = {
@@ -11,7 +11,7 @@ const API = {
     `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(name)}`,
 };
 
-// ---------- Drawer (shared) ----------
+// ---------- Drawer ----------
 function initDrawer() {
   const ham = document.querySelector(".nav-ham");
   const drawer = document.getElementById("drawer");
@@ -140,7 +140,7 @@ function ViewCategory(category) {
   `;
 }
 
-// Single meal page using your Baingan Bharta layout/CSS
+
 function ViewMeal() {
   return `
     ${ViewHero()}
@@ -210,7 +210,7 @@ function ViewMeal() {
   `;
 }
 
-// ---------- Shared search initialiser (works on every page) ----------
+// ---------- Shared search initialiser  ----------
 function initSearchBar(initialQuery = "") {
   const input = document.getElementById("searchInput");
   const btn = document.getElementById("searchBtn");
@@ -228,7 +228,7 @@ function initSearchBar(initialQuery = "") {
       return;
     }
 
-    // Normal text → go to search route handled by Home
+    
     location.hash = `#/search/${encodeURIComponent(raw)}`;
   }
 
@@ -240,7 +240,7 @@ function initSearchBar(initialQuery = "") {
 
 // ---------- Controllers ----------
 
-// Home: categories + optional search results
+// Home: categories search results
 async function HomeController(initialQuery = "") {
   const el = {
     cards: document.getElementById("cards"),
@@ -355,7 +355,7 @@ async function HomeController(initialQuery = "") {
 
 // Category: list meals in that category
 async function CategoryController(category) {
-  initSearchBar(); // hero search active on this page
+  initSearchBar(); 
 
   const el = {
     catTitle: document.getElementById("catTitle"),
@@ -593,7 +593,7 @@ function parseRoute() {
 }
 
 async function render() {
-  // init shared drawer once
+
   window._drawerInited || (initDrawer(), (window._drawerInited = true));
   window._drawerCatsLoaded || (await loadDrawerCategories(), (window._drawerCatsLoaded = true));
 
@@ -603,7 +603,7 @@ async function render() {
 
   if (view === "home") {
     app.innerHTML = ViewHome();
-    await HomeController(param); // param = "" or search query
+    await HomeController(param); 
     return;
   }
 
